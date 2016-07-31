@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;mymohaut1/dataset1.csv&apos; to &apos;dataset1.txt&apos;" description="Rename resource &apos;dataset1.csv&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="dataset1.csv" name="dataset1.txt" stamp="1443359674020" updateReferences="true"/>
+</session>

@@ -1,0 +1,118 @@
+package hackerMissile;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
+public class Solution {
+	
+	public class MissileX
+	{
+		public int frequency;
+		public int lastTime ;
+	}
+	
+	//Comparator c = new Comparator
+	
+	public class MissileComparator implements Comparator<MissileX>
+	{
+
+		public int compare(MissileX o1, MissileX o2) {
+			// TODO Auto-generated method stub
+			//return 0;
+			
+			if (o1.frequency < o2.frequency)
+				return -1;
+			
+			if (o1.frequency > o2.frequency)
+				return 1;
+			
+			return 0;
+		}
+		
+	}
+	MissileComparator mc = new MissileComparator();
+	
+	//PriorityQueue missileQueue = new PriorityQueue(mc);
+	
+	PriorityQueue<MissileX> missileQueue = new PriorityQueue<MissileX>(100000, new Comparator<MissileX>() {
+		public int compare(MissileX o1, MissileX o2) {
+			// TODO Auto-generated method stub
+			//return 0;
+			
+			if (o1.frequency < o2.frequency)
+				return -1;
+			
+			if (o1.frequency > o2.frequency)
+				return 1;
+			
+			return 0;
+		}
+    });
+	
+	public void calc() throws IOException
+	{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		//BufferedReader br = new BufferedReader(new FileReader("input1.txt"));
+		
+		int n = Integer.parseInt(br.readLine());
+		
+		
+		int lastTime = -1;
+		for (int i = 0; i < n; i++)
+		{
+			String[] vals = br.readLine().split(" ");
+			
+			int time = Integer.parseInt(vals[0]);
+			int freq = Integer.parseInt(vals[1]);
+			
+			if (lastTime == time)
+			{
+				lastTime = time;
+				continue;
+			}
+			
+			boolean needNewMissile = true;
+			for (Object mm:  missileQueue)
+			{
+				MissileX m = (MissileX) mm;
+				if (Math.abs(freq - m.frequency) <= (time - lastTime))
+				{
+					m.frequency = freq;
+					needNewMissile = false;
+				}
+					//MissileX m = missileQueue.
+			}
+			
+			if (needNewMissile)
+			{
+				MissileX newm = new MissileX();
+				newm.frequency = freq;
+				missileQueue.add(newm);
+			}
+			
+			
+			lastTime = time;
+			
+			
+			
+		}
+		
+		//return missileQueue.size();
+		System.out.println(missileQueue.size());
+		
+		
+		
+	}
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+
+		Solution sol = new Solution();
+		sol.calc();
+	}
+
+}

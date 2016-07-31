@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class ConnectedGraph {
+	
+	
+	int m;
+	int n;
+	int[][] matrix;
+	
+	public void calc() throws Exception
+	{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		m = Integer.parseInt(br.readLine());
+		n = Integer.parseInt(br.readLine());
+		
+		matrix = new int[m][n];
+		
+		for (int i = 0; i < m; i++)
+		{
+			String[] vals = br.readLine().split(" ");
+			
+			for (int j = 0; j < n; j++)
+			{
+				matrix[i][j] = Integer.parseInt(vals[j]);
+			}
+		}
+		
+		int max = 0;
+		for (int i = 0; i < m; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				int tmp = bfs(i,j); 
+				
+			}
+		}
+		
+		
+		
+	}
+	
+	
+	int bfs(int i, int j)
+	{
+		
+	}
+
+	public static void main(String[] args) throws Exception{
+		
+		ConnectedGraph sol = new ConnectedGraph();
+		
+		sol.calc();
+
+	}
+
+}

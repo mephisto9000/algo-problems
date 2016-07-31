@@ -1,0 +1,18 @@
+
+public class ConnectedGraph {
+	
+	
+	public void calc() throws Exception
+	{
+		
+	}
+
+	public static void main(String[] args) throws Exception{
+		
+		ConnectedGrapth sol = new ConnectedGraph();
+		
+		sol.calc();
+
+	}
+
+}

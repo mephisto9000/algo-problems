@@ -1,0 +1,124 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.StringTokenizer;
+
+public class Solution {
+
+	private int n;
+	private int k;
+
+	private int[][] prices;
+	
+	public class Card{
+		public  int ii;
+		public int jj ;
+		public int price;
+	}
+	
+	Comparator<Card> comp = new Comparator<Card>()
+	{
+
+		public int compare(Card o1, Card o2) {
+			
+			if (o1.price > o2.price)
+				return -1;
+			
+			return 1;
+		}
+		
+	};
+	
+	
+
+	public Solution(int n, int k)
+	{
+		super();
+		this.n = n;
+		this.k = k;
+	}
+
+	public void setPrices(int[][] prices)
+	{
+		this.prices = prices;
+	}
+
+	public int calc()
+	{
+		int[][] a = new int[n][k];
+		int[][] ids = new int[n][k];
+
+		// transpose
+		for (int i = 0; i < k; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				a[j][i] = prices[i][j];
+			}
+		}
+
+		int prev = -1;
+		int val = 0;
+		for (int i = 0; i < n; i++)
+		{
+			//Arrays.sort(a[i]);
+			
+			PriorityQueue<Card> q = new PriorityQueue<Card>(k, comp);
+			for (int j = 0; j < k; j++)
+				P
+			
+			for (int j = 0; j < k; j++)
+			{
+				if (prev != j)
+				{
+					
+					System.out.println("i="+i+" j="+j+", element="+a[i][j]);
+					val += a[i][j];
+					prev = j;
+					break;
+				}
+			}
+		}
+
+
+		return val;
+
+
+	}
+
+	public static void main(String[] args) throws IOException 
+	{
+		BufferedReader sb = new BufferedReader(new InputStreamReader(System.in));
+
+		String s = sb.readLine();
+
+		StringTokenizer st = new StringTokenizer(s);
+		
+		int n = Integer.parseInt(st.nextToken());
+		int k = Integer.parseInt(st.nextToken());
+		
+		Solution sol = new Solution(n, k);
+
+		int [][] prices = new int[k][n];
+
+		for (int i = 0; i < k ; i++)
+		{
+			s = sb.readLine();
+			st = new StringTokenizer(s);
+
+			for (int j = 0; j <  n; j++)
+			prices[i][j] = Integer.parseInt(st.nextToken());
+
+		}
+
+
+		sol.setPrices(prices);
+
+		System.out.println(sol.calc());
+
+
+	}
+}

@@ -1,0 +1,94 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+
+public class Solution {
+	
+	int stockSize;
+	int[] price;
+	int[] memo;
+	
+	public Solution(int stockSize)
+	{
+		super();
+		
+		this.stockSize = stockSize;
+		this.price = new int[stockSize];
+		
+	}
+	
+	public void addShare(int index, int val)
+	{
+		price[index] = val;
+	}
+	
+	public int calc()
+	{
+		int result = rec(0, 0);
+		return result;
+	}
+	
+	public int rec (int day, int myStock)
+	{
+		int max = 0;
+		
+		int tmp = 0;
+		
+		if (day >= stockSize )
+			return 0;
+		
+		//case 1 - buy
+		tmp = -price[day] + rec(day+1, myStock+1);
+			if (tmp > max)
+				max = tmp;
+			
+		//case 2,3 - no buy, no sell .... or
+		for (int sellCount = 0; sellCount <= myStock; sellCount++ )
+		{
+		    tmp = sellCount*price[day] + rec(day + 1, myStock - sellCount);
+		    if (tmp > max)
+		    	max = tmp;
+		}
+		
+		return max;
+			
+	}
+	
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		String s = br.readLine();
+		
+		int t = Integer.parseInt(s); // testcases
+		
+		StringTokenizer st;
+		
+		for (int i = 0; i < t; i++)
+		{
+			
+			
+			int digits = Integer.parseInt(br.readLine());
+			
+			Solution sol = new Solution(digits);
+			
+			s = br.readLine();
+			
+			st = new StringTokenizer(s);
+			
+			for (int j = 0; j < digits; j++)
+			{
+				int share = Integer.parseInt(st.nextToken());
+				sol.addShare(j, share);
+				
+			}
+			System.out.println (sol.calc());
+		}
+	}
+
+}

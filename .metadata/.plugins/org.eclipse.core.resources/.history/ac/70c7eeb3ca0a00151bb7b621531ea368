@@ -1,0 +1,52 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+
+public class Solution {
+	
+	int stockSize;
+	int[] stock;
+	
+	public Solution(int stockSize)
+	{
+		super();
+		
+		this.stockSize = stockSize;
+		
+	}
+	
+	public void addShare
+	{
+		
+	}
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		String s = br.readLine();
+		
+		int t = Integer.parseInt(s); // testcases
+		
+		StringTokenizer st;
+		
+		for (int i = 0; i < t; i++)
+		{
+			int digits = Integer.parseInt(br.readLine());
+			
+			s = br.readLine();
+			
+			st = new StringTokenizer(s);
+			
+			for (int j = 0; j < digits; j++)
+			{
+				st.nextToken();	
+			}
+		}
+	}
+
+}

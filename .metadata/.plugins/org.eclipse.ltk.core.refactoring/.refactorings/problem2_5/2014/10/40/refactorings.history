@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;codingInterviewLinkedList&apos; to &apos;problem2_6/src&apos;&#x0A;- Original project: &apos;problem2_5&apos;&#x0A;- Destination element: &apos;problem2_6/src&apos;&#x0A;- Original element: &apos;problem2_5/src/codingInterviewLinkedList&apos;" description="Copy package" destination="=problem2_6/src" element1="/src&lt;codingInterviewLinkedList" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1412449327450" version="1.0"/>
+</session>
