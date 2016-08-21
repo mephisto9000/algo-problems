@@ -51,7 +51,7 @@ public class Solution {
 		bikerPos = new int[n][2];
 		bikePos = new int[m][2];
 		
-		dist = new double[n][m];
+		dist = new double[n+1][m+1];
 		
 		for (int i = 0; i < n; i++)
 		{
@@ -67,6 +67,14 @@ public class Solution {
 			bikePos[i][1] = Integer.parseInt(vals[1]);
 		}
 		
+		for (int i = 0; i <= n; i++)
+		{
+			//vals = br.readLine().split(" ");
+			//bikerPos[i][0] = Integer.parseInt(vals[0]);
+			//bikerPos[i][1] = Integer.parseInt(vals[1]);
+			Arrays.fill(dist[i], 0);
+		}
+		
 		
 		for (int i = 0; i < n; i++)
 		{
@@ -74,7 +82,7 @@ public class Solution {
 			{
 				double d =    ( Math.pow((bikePos[j][0] - bikerPos[i][0]),2) + Math.pow(bikePos[j][1] - bikerPos[i][1], 2));
 				
-				dist[i][j] = d;
+				dist[i+1][j+1] = d;
 				
 				//System.out.println(d);
 			}
@@ -115,7 +123,8 @@ public class Solution {
 			boolean used[]= new boolean[m+1];
 			Arrays.fill(used, false);
 			
-			while(p[j0] != 0)
+			
+			do
 			{
 				used[j0] = true;
 				
@@ -128,7 +137,7 @@ public class Solution {
 				{
 					if (!used[j]) 
 					{
-						double cur = dist[i0-1][j-1] - u[i0] -v[j];
+						double cur = dist[i0][j] - u[i0] -v[j];
 						
 						if (cur < minv[j])
 						{
@@ -160,9 +169,9 @@ public class Solution {
 				}
 				
 				j0 = j1;
-			}
-			
-			while(j0!= 0)
+			}while(j0!= 0);
+
+			do
 			{
 				int j1 = way[j0];
 				
@@ -170,6 +179,7 @@ public class Solution {
 				j0 = j1;
 				
 			}
+			while (j0 > 0);
 			
 			
 		}
@@ -180,25 +190,35 @@ public class Solution {
 		Arrays.fill(ans, 0);
 		
 		for (int j=1; j<=m; ++j)
+			{
 			ans[p[j]] = j;
+			
+			
+			
+			}
 		
 		double max = 0;
 		
 		Queue q = new PriorityQueue();
 		
+		
+		
 		for (int j=1; j<=m; ++j)
 			//if (dist[j-1][ans[j]-1] > max) // != j)
-				q.add(dist[j-1][ans[j]-1]);
+				q.add(dist[j][ans[j]]);
 		
-		for (int i = 0; i < k; i++)
+		for (int i = 0; i < k+1; i++)
+		{
 			max = (Double) q.poll();
+			System.out.println(max);
+		}
 			//System.out.println(q.poll());
 			
 		//while.
 
+		
 
-
-		//System.out.println((int) max);
+		System.out.println((int) max);
 		
 		
 		
