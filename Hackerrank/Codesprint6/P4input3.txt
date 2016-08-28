@@ -1,0 +1,9 @@
+4
+aaBcd
+ACD
+ABBBBCD
+ABBBBCD
+aaBcdB
+BCDB
+aaBcdB
+BCD

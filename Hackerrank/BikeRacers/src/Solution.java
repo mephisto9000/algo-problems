@@ -2,9 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
@@ -84,7 +81,7 @@ public class Solution {
 				
 				dist[i+1][j+1] = d;
 				
-				//System.out.println(d);
+				System.out.println(d);
 			}
 		}
 		
@@ -107,8 +104,14 @@ public class Solution {
 		//List<Integer> u = new LinkedList<Integer>();
 		//List<Integer> v = new LinkedList<Integer>();
 		int u[] = new int[n+1];
+		Arrays.fill(u,  0);
+		
 		int v[] = new int[m+1];
+		Arrays.fill(v, 0);
+		
+		
 		int p[] = new int[m+1];
+		Arrays.fill(p, 0);
 		int way[] = new int [m+1];
 		
 		for (int i = 1; i <= n; i++)
@@ -169,7 +172,7 @@ public class Solution {
 				}
 				
 				j0 = j1;
-			}while(j0!= 0);
+			}while(p[j0]!= 0);
 
 			do
 			{
@@ -179,7 +182,7 @@ public class Solution {
 				j0 = j1;
 				
 			}
-			while (j0 > 0);
+			while (j0>0);
 			
 			
 		}
@@ -207,7 +210,7 @@ public class Solution {
 			//if (dist[j-1][ans[j]-1] > max) // != j)
 				q.add(dist[j][ans[j]]);
 		
-		for (int i = 0; i < k+1; i++)
+		for (int i = 0;  i < k; i++)
 		{
 			max = (Double) q.poll();
 			System.out.println(max);
@@ -230,7 +233,7 @@ public class Solution {
 	{
 		
 		
-		if (cyclerId >=  n ) 						
+		if (cyclerId >=  k ) 						
 				//return new Result(0, cycles.size()); //Float.MAX_VALUE;
 			//return 0;
 			return Float.MAX_VALUE;
