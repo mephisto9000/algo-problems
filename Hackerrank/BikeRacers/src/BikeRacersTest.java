@@ -20,9 +20,9 @@ public class BikeRacersTest {
 	public void test1() {
 		System.out.println("test1");
 		sol.setFilename("input1.txt");
-		int expected = 19069;
+		long expected = 19069;
 		try {
-			assertEquals(expected, (int) sol.calc());
+			assertEquals(expected, sol.calc() );
 			System.out.println("test1 pass");
 			
 		} catch (Exception e) {
@@ -70,6 +70,8 @@ public class BikeRacersTest {
 	
 
 	
+	
+	
 	@Test
 	public void test10() {
 		System.out.println("test10");
@@ -85,6 +87,40 @@ public class BikeRacersTest {
 			fail("Exception e = "+e.toString());
 		}
 		
-	}
+	} 
+	
+	@Test
+	public void test4() {
+		System.out.println("test4");
+		sol.setFilename("input4.txt");
+		long expected = 42565;
+		try {
+			assertEquals(expected, sol.calc());
+			System.out.println("test4 pass");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			fail("Exception e = "+e.toString());
+		}
+		
+	} 
+	
+	@Test
+	public void test5() {
+		System.out.println("test5");
+		sol.setFilename("input5.txt");
+		long expected = 51311849;
+		try {
+			assertEquals(expected, sol.calc());
+			System.out.println("test5 pass");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			fail("Exception e = "+e.toString());
+		}
+		
+	} 
 
 }

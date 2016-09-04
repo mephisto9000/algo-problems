@@ -241,7 +241,11 @@ public class Solution {
 				{
 					//maxTime = dist[i+1][j+1]
 					if (!timeQueue.contains(dist[i+1][j+1]))
+					{
 						timeQueue.add(dist[i+1][j+1]);
+						
+						//dist[i+1][j+1]
+					}
 				}
 		
 		
@@ -262,36 +266,67 @@ public class Solution {
 		Arrays.fill(timeAnsArray, -1);
 		Arrays.fill(flowArray, 0);
 		
+		int timeIdMax = 0;
 		for (int i = 0 ; i< timeQueue.size(); i++)
 		{
 			timeArray[i] = timeQueue.poll();
 			
-			//System.out.println(timeArray[i]);
+			System.out.println(timeArray[i]);
+			timeIdMax = i;
 		}
 		
 		long minTime = Long.MAX_VALUE;
 		
 		int timeIdMin = 0;
-		int timeIdMax = timeArray.length - 1;
+		//int timeIdMax = timeArray.length - 1;
 		//int timeId = 0;
 		
 		
-		return bikeSearchBinary(0, timeIdMax );
+		 //System.out.println(timeIdMax+"dddd"+timeArray[timeIdMax]);
+		
+		return bikeSearchBinary(0,  timeArray[timeIdMax] );
  		 
 	}
 	
 	
+	long bikeSearchBinary(long minTime, long maxTime)
+	{
+		
+		//System.out.println(minTime + "   " + maxTime);
+		long low = minTime;
+		long high = maxTime;
+		long   mid = minTime;
+
+		while(low < high)
+		{
+			mid = (low + high) / 2;
+			
+			if( bikeSearch( mid ) )
+			{
+				high = mid;
+			}
+			else
+			{
+				low = mid+1 ;
+			}
+
+		}
+		
+		return high; //  + 1;
+	}
 	
-	long bikeSearchBinary(int timeIdMin, int timeIdMax)
+	//long
+	
+	boolean bikeSearch(long time) //int timeIdMin, int timeIdMax)
 	{
 		// we first clean our network of useless (now) edges
 		 //time = timeQueue.poll(); 
 		 //System.out.println("time == "+time);
 		 
-		int timeId = (timeIdMax + timeIdMin) / 2;
+		//int timeId = (timeIdMax + timeIdMin) / 2;
 		
 		//System.out.println("tid == "+timeId+" timeIdMin == "+timeIdMin + " timeIdMax == "+timeIdMax);
-		long time = timeArray[timeId];
+		//long time = timeArray[timeId];
 		 
 		 s.clearEdges();
 		
@@ -403,70 +438,14 @@ public class Solution {
 		
 		//System.out.println("flow == " + flow+" k == "+k);
 		
-		flowArray[timeId] = flow;
+		//flowArray[timeId] = flow;
 		
-		if (flow ==  k)
-		{
-			
-			
-			
-			if (time < minTime)
-				minTime = time;
-			/*
-			
-			timeAnsArray[timeId] = time;
-			
-			long val1 = Long.MAX_VALUE;
-			long val2 = Long.MAX_VALUE;
-			
-			
-			
-			if (timeId - 1 >=0 && timeAnsArray[timeId - 1]==-1)
-				bikeSearchBinary(timeIdMin - 1, timeIdMax -1 );
-			if (timeId + 1 < timeArray.length && timeAnsArray[timeId + 1]==-1)
-				bikeSearchBinary(timeIdMin + 1, timeIdMax + 1 );
-				//< timeArray.length)
-			//	return  bikeSearchBinary(timeIdMin - 1, timeIdMax -1 ); /// (int) time;
-			//else
-				return minTime;
-				*/
-			
-			 //if(time >= K && ( mid == 1 || A[mid-1] < K ))
-			
-			
-			if (timeId - 1 >= 0 ) // timeArray.length)
-			{
-				long val = bikeSearchBinary(timeId - 1, timeId  -1 );
-				
-				if (flowArray[timeId - 1] < k)
-					return time;
-			}
-			//else
-			
-			//return minTime;
-											
-		}
+		 if (flow >= k)
+			 return true;
+		 else
+			 return false;
 		
-		if (timeIdMin == timeIdMax)
-			 return time;
-		
-		//if (minTime != Long.MAX_VALUE)
-		//	return minTime;
-		
-		//if (timeId)
-		
-		if (flow >= k)
-		{
-			if (timeId - 1 >= 0)
-				timeId --;
-			return bikeSearchBinary(timeIdMin, timeId );
-		}
-		else
-		{
-			if (timeId + 1 < timeIdMax)
-				timeId ++;
-			return bikeSearchBinary(timeId, timeIdMax);
-		}
+	 
 		
 		
 	
@@ -521,6 +500,8 @@ public class Solution {
 				int d =    (int) ( Math.pow((bikePos[j][0] - bikerPos[i][0]),2) + Math.pow(bikePos[j][1] - bikerPos[i][1], 2));
 				
 				dist[i+1][j+1] = d;
+				
+
    
 			}
 		}
@@ -551,3 +532,4 @@ public class Solution {
 	}
 
 }
+
