@@ -1,4 +1,4 @@
-//package vodostoki1015;
+package vodostoki1015;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
