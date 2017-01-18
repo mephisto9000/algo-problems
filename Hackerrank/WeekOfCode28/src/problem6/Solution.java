@@ -88,7 +88,7 @@ public class Solution {
 			}
 			
 			ans[i] = ansTmp;
-			
+			   
 			/*
 			for (int j = 0; j < s.length(); j++)
 			{
