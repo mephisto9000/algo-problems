@@ -15,8 +15,22 @@ public class Solution {
 	
 	int n; // num of nodes
 	int m ; // num of edges
+	int maxCost = 2047;
 	
 	Node[] nodes;
+	
+	
+	public class Pair
+	{
+		int nodeIdx;
+		int cost;
+		
+		public Pair(int i, int c)
+		{
+			nodeIdx = i;
+			cost = c;
+		}
+	}
 	
 	public class Node// implements Comparable
 	{
@@ -34,26 +48,7 @@ public class Solution {
 			this.id = id;
 		}
 
-		/*
-		@Override
-		public int compareTo(Object o) {
-			// TODO Auto-generated method stub
-			
-			Node out_node = (Node) o;
-			
-			if (this.visited)
-				return 1;
-			
-			if (out_node.visited)
-				return -1;
-			
-			if (this.dist < out_node.dist)
-				return -1;
-			if (this.dist > out_node.dist)
-				return 1;
-			
-			return 0;
-		} */
+		 
 	}
 	
 	
@@ -127,7 +122,7 @@ public class Solution {
 		int a = Integer.parseInt(vals[0]) - 1;
 		int b = Integer.parseInt(vals[1]) - 1;
 		
-		int res = dijkstra(a, b);
+		int res = bfs(a, b);
 		
 			
 		
@@ -136,78 +131,53 @@ public class Solution {
 	}
 	
 	
-	int dijkstra(int a, int b)
+	int bfs(int a, int b)
 	{
-		boolean[] visited = new boolean[n];
+		boolean[][] visited = new boolean[n][maxCost];
 		
-		Arrays.fill(visited, false);
+		for (int i = 0; i < n; i++)
+			Arrays.fill(visited[i], false);
 		
 		int d[] = new int[n];
 		
 		Arrays.fill(d, Integer.MAX_VALUE);
 		
+		Pair src = new Pair (a, 0);
 		
+		Queue<Pair> q = new LinkedList<Pair>();
 		
-		///nodes[a].dist = 0;
-		d[a] = 0;
-		//Queue<Node> q = new PriorityQueue<Node>(10000, new NodeComparator());
+		q.add(src);
 		
-		//for (int i = 0; i < n; i++)
-		//	q.add(nodes[i]);
-		
-		int ans = -1;
-		for (int i = 0; i < n; i++)
+		while (!q.isEmpty())
 		{
-			int v = -1;
+			Pair p = q.poll();
 			
-			for (int j = 0; j < n; j++)
+			for (int j = 0; j < nodes[p.nodeIdx].neighbors.size(); j++)
 			{
-				if (visited[j]==false && (v == -1 || d[v] > d[j]))
-					v = j;
-			}
-			
-			
-			Node node =  nodes[v];
-			visited[v] = true;
-			//Node node =  q.poll();
-			//node.visited = true;
-			
-			//System.out.println("dist == "+d[v]); // .dist);
-			
-			//if (node.dist == Integer.MAX_VALUE)
-			if (d[v] == Integer.MAX_VALUE)
-				break;
-			
-			for (int k = 0; k < node.neighbors.size(); k++)
-			{
-				int to = node.neighbors.get(k);
-				int cost = node.costs.get(k);
+				int nidx = nodes[p.nodeIdx].neighbors.get(j);
+				int ncost = nodes[p.nodeIdx].costs.get(j);
 				
-				Node out_node = nodes[to];
-				
-				//if (out_node.dist > (node.dist | cost))
-				if (d[to] > ( d[v] | cost))
+				if (!visited[nidx][ncost | p.cost ])
 				{
-					//out_node.dist = node.dist | cost;
-					d[to] = d[v] | cost;
+					visited[nidx][ncost | p.cost ] = true;
 					
+					Pair pnew = new Pair(nidx, ncost | p.cost);					
+					q.add(pnew);
 				}
-				
-				
-						
-						
 			}
-			
-			//q.add(node);
-			
-			//q.r
-			
 			
 		}
 		
-		if (d[b]!= Integer.MAX_VALUE)
-			ans = d[b]; //.dist;
-		
+		int ans = -1;
+		for (int j = 0; j < maxCost; j++)
+		{
+			if (visited[b][j]) 
+			{
+				ans = j;
+				break;
+			}
+		}
+		 
 		return ans;
 	}
 
