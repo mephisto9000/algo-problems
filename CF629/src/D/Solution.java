@@ -75,7 +75,7 @@ public class Solution {
 		//if (tl > tr)
 		
 		
-		System.out.println("update v =="+v+" idx = "+idx + " tl = "+tl + " tr = "+tr);// + " m = "+m);
+		//System.out.println("update v =="+v+" idx = "+idx + " tl = "+tl + " tr = "+tr);// + " m = "+m);
 		
 		
 		if (idx < tl || idx > tr)
@@ -86,8 +86,8 @@ public class Solution {
 			if (tl == idx)
 			{
 				
-				System.out.println("i'm here !!!!");
-				System.out.println(" idx == "+idx + " vol == "+arr[idx].volume());
+				//System.out.println("i'm here !!!!");
+				//System.out.println(" idx == "+idx + " vol == "+arr[idx].volume());
 				
 				tree[v] = arr[idx].volume();
 				return;
@@ -130,19 +130,29 @@ public class Solution {
 	public long getMax(int l, int r, int v, int tl, int tr)
 	{
 		 
-		if (l > tr || r < tl)
+		//if (l > tr || r < tl)
+		//	return 0;
+		
+		if (l > r)
 			return 0;
 		
-		//System.out.println("l == "+l + " r=="+r+" v=="+v+" tl=="+tl+" tr=="+tr);
+		System.out.println("l == "+l + " r=="+r+" v=="+v+" tl=="+tl+" tr=="+tr);
 		
-		//if (l == r)
-		if (l <= tl  && tr <=  r)
+		
+		
+		//if ((l == r)) // ||  (Math.abs(l - r) == 1))
+		//if (l <= tl  && tr <=  r)
 		//if (l == tl && r == tr)
+		if (l == tl && r == tr)
 			return tree[v];
 		
-		int m = (tl + tr) / 2;
+		//if (tl >= tr)
+		//	return 0;
 		
-		return max(getMax(l, r, v *2, tl, m), getMax(l, r, v*2+1, m+1, tr));
+		//int m = (tl + tr) / 2;
+		int m = (tl + tr) >> 1;
+		//tl, m),
+		return max(getMax(l, Math.min(m, r), v *2, tl, m),  getMax(Math.max(l, m + 1), r, v*2+1, m+1, tr));
 		
 	}
 	
@@ -191,7 +201,18 @@ public class Solution {
 		Arrays.sort(arr);
 		
 		//actual calculations
-		tree[0] = arr[0].volume();
+		
+		/*
+		for (int i = 0; i < 4*n; i++)
+		{
+			System.out.print(tree[i]+" ");
+		}
+		*/
+		System.out.println();
+		System.out.println();
+		
+		
+		//tree[arr[0].idx] = arr[0].volume();
 		
 		long maxes[] = new long[n];
 		Arrays.fill(maxes, 0);
@@ -202,14 +223,18 @@ public class Solution {
 		//System.out.println(arr[0].volume());
 		
 		
-		update(1, 0, 0, n-1);
+		update(1, 0,  0, n-1); //arr[0].idx
 		
-		 
-		for (int i = 0; i < n; i++)
+		 /*
+		for (int i = 0; i < 4*n; i++)
 		{
-			System.out.println(arr[i].volume());
+			System.out.print(tree[i]+" ");
 		}
 		
+		System.out.println();
+		System.out.println(" main loop ");
+		
+		*/
 		for (int i = 1; i < n; i++)
 		{
 			
@@ -217,10 +242,11 @@ public class Solution {
 			
 			 
 			//idx-1
-			long max =getMax(0,  idx-1, 1, 0, n-1);
+			long max =getMax(0,  idx-1,  1, 0, n-1); //idx-1  - 1
 			
 			
-			System.out.println("i == "+i);
+			//System.out.println("i == "+i);
+			
 			
 			
 			for (int j = 0; j < 4*n; j++)
@@ -229,7 +255,8 @@ public class Solution {
 			}
 			System.out.println();
 			
-			System.out.println("max == "+max+" idx == " + idx + " vol =="+arr[i].volume());
+			System.out.println("max=="+max+" idx==" + idx + " vol=="+arr[i].volume());
+			
 			
 			if (max < arr[i].volume())
 			{

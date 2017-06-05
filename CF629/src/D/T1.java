@@ -9,7 +9,7 @@ public class T1 {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	@Ignore
+	//@Ignore
 	public void test0() throws Exception{
 		
 
