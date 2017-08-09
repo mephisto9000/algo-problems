@@ -1,5 +1,8 @@
 package problem20;
 
+import java.util.LinkedList;
+import java.util.Stack;
+
 public class Solution {
 
 	public static void main(String[] args) {
@@ -8,42 +11,60 @@ public class Solution {
 	}
 	
 	public boolean isValid(String s) {
-		int a = 0;
-		int b = 0;
-		int c = 0;
+		
+		Stack<Character> st = new Stack<Character>();
+		
 		
 		for (int i = 0; i < s.length(); i++)
 		{
-			char x = s.charAt(i);
-			switch (x)
+			char c = s.charAt(i);
+			
+			if (isStart(c))
+				st.push(c);
+			else
 			{
-			case '{':
-				a++;
-				break;
-			case '}':
-				a--;
-				break;
-			case '[':
-				b++;
-				break;
-			case ']':
-				b--;
-				break;
-			case '(':
-				c++;
-				break;
-			case ')':
-				c--;
-				break;
+				char c1;
+				if (!st.isEmpty())
+				{
+					 c1 = st.peek();
+				}
+				else
+					return false;
+				
+				if (check(c1, c))
+					st.pop();
+				else
+					return false;
+				
 			}
-									
 		}
 		
-		if (a != 0 || b != 0 || c != 0)
+		if (!st.isEmpty())
 			return false;
 		
 		return true;
 	        
+	}
+	
+	public boolean check(char c1, char c2)
+	{
+		if (c1 == '{' && c2 == '}')
+			return true;
+		
+		if (c1 == '(' && c2 == ')')
+			return true;
+		
+		if (c1 == '[' && c2 == ']')
+			return true;
+		
+		return false;
+	}
+	
+	public boolean isStart(char c)
+	{
+		if (c == '{' || c == '(' || c == '[')
+			return true;
+		return false;
 	}
 
 }
