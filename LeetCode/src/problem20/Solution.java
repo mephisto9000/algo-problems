@@ -1,5 +1,4 @@
 package problem20;
-
 import java.util.LinkedList;
 import java.util.Stack;
 
