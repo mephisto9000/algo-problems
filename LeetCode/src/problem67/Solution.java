@@ -10,11 +10,7 @@ public class Solution {
 		String a = "1010";
 		String b = "1011";
 		
-		
-		String s = "110101001011101110001111100110001010100001101011101010000011011011001011101111001100000011011110011";
-		System.out.println(s.length());
-		
-		
+				
 		System.out.println(sol.addBinary(a, b));
 
 	}
@@ -22,12 +18,64 @@ public class Solution {
 
 	public String addBinary(String a, String b) {
 
-		long ai = strToBin(a);
-		long bi = strToBin(b);
 		
+		StringBuffer sb = new StringBuffer();
 		
+		int z = 0;
+		
+		int alen = a.length()-1;
+		int blen = b.length()-1;
+		
+		int bit = 0;
+		
+		boolean stop = true;
 
-		return binToStr(ai + bi);
+		while(true)
+		{
+			int ai = 0;
+			int bi = 0;
+			
+			stop = true;
+			
+			if (alen - z >= 0)
+			{
+				ai = a.charAt(alen - z) - '0';
+				stop = false;
+			}
+			
+			if (blen - z >= 0)
+			{
+				bi = b.charAt(blen - z) - '0';
+				stop = false;
+			}
+			
+			if (stop==true)
+				break;
+			
+			
+			z++;
+			
+			int v = (ai + bi) + bit;
+			
+			if ((v & 1) == 1)
+				sb.insert(0, '1');
+			else
+				sb.insert(0, '0');
+			
+			
+			if (v >= 2)
+				bit = 1;
+			else
+				bit = 0;
+							
+			
+		}
+		
+		if (bit == 1)
+			sb.insert(0, '1');
+				
+		
+		return sb.toString();
 
 
 	}
