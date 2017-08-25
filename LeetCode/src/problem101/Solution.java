@@ -6,7 +6,7 @@ public class Solution {
 	
 	 
     
-    int tree[];
+    StringBuffer stree[];
     int treeSizes[];
     int size;
     
@@ -25,14 +25,20 @@ public class Solution {
     	
     	treeSizes = new int[deepestLevel];
     	
+    	//
+    	stree = new StringBuffer[deepestLevel];
     	
+    	for (int i = 0; i < deepestLevel; i++)
+    		stree[i] = new StringBuffer();
         
         if (size == 1)
         	return true;
-        	
-        tree = new int[2*size];
         
-        Arrays.fill(tree, Integer.MIN_VALUE);
+        
+        	
+        //tree = new int[2*size];
+        
+        //Arrays.fill(tree, Integer.MIN_VALUE);
         
         unmarshal(root, 1, 0);
         
@@ -67,13 +73,17 @@ public class Solution {
     {
         if (idx > size || root == null)
             return;
-        
-        tree[idx-1] = root.val;
-        
+                
         int i1 = idx * 2 ;
         int i2 = idx * 2 + 1;
         
         treeSizes[level] ++;
+
+        if (stree[level] == null)
+        	stree[level] = new StringBuffer();
+        
+        
+        stree
         
         
         
