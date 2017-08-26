@@ -2,22 +2,6 @@ package problem60;
 
 public class Solution {
 
-	 public static void main(String[] args) {
-		 
-		 Solution sol = new Solution();
-		 
-		 System.out.println(sol.getPermutation(5,0));
-		 System.out.println(sol.getPermutation(5,1));
-		 System.out.println(sol.getPermutation(5,2));
-		 System.out.println(sol.getPermutation(5,3));
-		 System.out.println(sol.getPermutation(5,4));
-		 
-		 
-		 
-		 
-
-	 }
-
 	 int[] arr;
 	 int n;
 
@@ -50,14 +34,8 @@ public class Solution {
 							 max_j = j;
 					 }
 					 
-					 swap(i,max_j);
-					 
-					 //if (max_j)
-					 //printArray();
+					 swap(i,max_j);					 
 					 rotate(i+1, n-1);
-					 
-					 //System.out.println(z);
-					 //printArray();
 					 z++;
 					 break;
 					 
@@ -73,16 +51,7 @@ public class Solution {
 			 
 		 
 		 return sb.toString();
-	 }
-	 
-	 void printArray()
-	 {
-		 StringBuffer sb = new StringBuffer();
-		 for (int i = 0; i < n; i++)
-			 sb.append(arr[i]);
-		 
-		 System.out.println(sb.toString());
-	 }
+	 }	 
 	 
 	 void rotate(int i, int j)
 	 {

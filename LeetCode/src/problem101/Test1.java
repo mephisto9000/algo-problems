@@ -42,7 +42,7 @@ public class Test1 {
 	
 	
 	@Test
-	@Ignore
+	
 	public void test2() {
 		
 		Solution sol = new Solution();
@@ -74,6 +74,7 @@ public class Test1 {
 	
 	
 	@Test
+	@Ignore
 	public void test3() {
 		
 		Solution sol = new Solution();

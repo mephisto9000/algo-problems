@@ -1,111 +1,102 @@
 package problem101;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Solution {
 	
 	 
     
-    StringBuffer stree[];
-    int treeSizes[];
-    int size;
+public boolean isSymmetric(TreeNode root) {
+        
+ 
+        
+        return bfs(root);
+        
+    }
     
-    int deepestLevel = 0;
-    public boolean isSymmetric(TreeNode root) {
+    
+    TreeNode nope = new TreeNode(Integer.MIN_VALUE);
+    
+    
+    boolean bfs(TreeNode root)
+    {
+    
+        if (root == null )
+            return true;
         
-
-    	treeSize(root,1);
-    	
-    	size = 1;
-    	for (int i = 0; i < deepestLevel; i++)
-    	{
-    		size *= 2;
-    		
-    	}
-    	
-    	treeSizes = new int[deepestLevel];
-    	
-    	//
-    	stree = new StringBuffer[deepestLevel];
-    	
-    	for (int i = 0; i < deepestLevel; i++)
-    		stree[i] = new StringBuffer();
+        Set<TreeNode> visited = new HashSet<TreeNode>();
         
-        if (size == 1)
-        	return true;
+        List<TreeNode> level = new ArrayList<TreeNode>();    
+      
+        level.add(root);
+        visited.add(root);
         
-        
-        	
-        //tree = new int[2*size];
-        
-        //Arrays.fill(tree, Integer.MIN_VALUE);
-        
-        unmarshal(root, 1, 0);
-        
-        
-        
-        
-        
-        int i = 0;
-        int len = 1;
-        
-        while (i < size)
+        while(!level.isEmpty())
         {
-            int z = 0;
-            for (int j = i; j <= (i+ len / 2); j++)
-            {
-            	z++;
-                if (tree[j] != tree[i + len - z ] )
-                    return false;
-
-                
-            }
-            i += len;
+            int lvlLen = level.size();
             
-            len *=2;
+            int i = 0;
+            int j = lvlLen - 1;
+            
+            //check
+            boolean end = true;
+            while (i <= j)
+            {
+                TreeNode left = level.get(i);
+                TreeNode right = level.get(j);
+                
+                if (left != nope)
+                    end = false;
+                
+                if (right != nope)
+                    end = false;
+                
+                
+                if (left != null && right != null && left.val != right.val)
+                    return false;
+                
+                if ((left != null && right == null) || (left == null && right != null))
+                    return false;
+                
+                i++;
+                j--;
+            }
+            
+            if (end)
+                break;
+            
+            // collecting Children
+            List<TreeNode> tmpLevel = new ArrayList<TreeNode>();
+            
+            for (TreeNode tm : level)
+            {
+                if (tm!=null)
+                {
+                    if (tm.left != null)
+                        tmpLevel.add(tm.left);
+                    else
+                        tmpLevel.add(nope);
+                        
+                    if (tm.right != null)
+                        tmpLevel.add(tm.right);
+                    else
+                        tmpLevel.add(nope);
+                    
+                }
+                else
+                {
+                    tmpLevel.add(nope);
+                    tmpLevel.add(nope);
+                }
+            }
+            
+            level = tmpLevel;
+        
         }
         
         return true;
-        
-    }
-    
-    void unmarshal(TreeNode root, int idx, int level)
-    {
-        if (idx > size || root == null)
-            return;
-                
-        int i1 = idx * 2 ;
-        int i2 = idx * 2 + 1;
-        
-        treeSizes[level] ++;
-
-        if (stree[level] == null)
-        	stree[level] = new StringBuffer();
-        
-        
-        stree
-        
-        
-        
-        unmarshal(root.left, i1, level + 1);
-        unmarshal(root.right, i2, level + 1);
-        
-        
-    }
-    
-    int treeSize(TreeNode root, int level)
-    {
-    	if (root == null)
-    		return 0;
-    	
-    	if (level>deepestLevel)
-    		deepestLevel = level;
-    	
-    	
-        if (root.left == null && root.right == null)
-            return 1;
-        
-        else
-            return 1 + ((root.left == null)?1:treeSize(root.left, level +1)) + (root.right == null ? 1: treeSize(root.right, level+1));
     }
 }
