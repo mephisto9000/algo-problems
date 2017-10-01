@@ -70,15 +70,19 @@ public class Solution {
         List<String> ans = new LinkedList<String>();
 
         
-        StringBuffer sb = new StringBuffer();
+       // StringBuffer sb = new StringBuffer();
         for (int i = 0; i < n; i++)
         {
+        	/*
             sb.delete(0, sb.length()); 
 
             for (int j = 0; j < n; j++)
                 sb.append(tmp[i][j]);
 
-            ans.add(sb.toString());
+            ans.add(sb.toString()); */
+            
+            String text = String.copyValueOf(tmp[i]);
+            ans.add(text);
         }
         
         this.ans.add(ans);
