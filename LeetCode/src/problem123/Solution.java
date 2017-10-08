@@ -3,72 +3,30 @@ package problem123;
 
 class Solution {
     
-    int sStart = 0;
-    int sEnd = -1; 
-    
+        
     public int maxProfit(int[] prices) {
 
         if (prices==null || prices.length < 2)
             return 0;
 
-        sEnd = prices.length - 1;
-        
-        int n = prices.length;
-        int max = 0;
-        /*
-        for (int i = 0; i < n; i++)
+
+    	int buy1 = Integer.MIN_VALUE;
+    	int sell1 = Integer.MIN_VALUE;
+    	int buy2 = Integer.MIN_VALUE;
+    	int sell2 = Integer.MIN_VALUE;
+    	
+    	
+        for (int i = 0; i < prices.length; i++)
         {
-        	int ans = calcProfit(prices, i,  0);
-                        
-            
-            ans += calcProfit(prices, n , i);
-            
-            if (ans > max)
-            	max = ans;
-            	
-        } */
-        
-        max = calcProfit(prices, n,  0);
-        
-         
-        return max;
-    }
-
-
-    public int calcProfit(int prices[], int maxAllowedIdx, int minAllowedIdx)
-    {
-        int minSum = 0;
-        int minIdx = 0;
-
-        int localMinIdx = minAllowedIdx; 
-        int localSum = 0;
-        
-        int prevMax = 0;
-                
-        for (int i = minAllowedIdx + 1; i< maxAllowedIdx ; i++)    	        
-        {        	
-        	if (i >= prices.length)
-        		break;
-        	        	
-            localSum = prices[i] - prices[localMinIdx];
-
-            if (localSum < minSum)
-            {                                              
-                //sStart = i;
-                localMinIdx = i;
-                
-                prevMax = minSum;
-
-            }
-
-            if (minSum < localSum )
-            {                 
-            	sStart = localMinIdx;
-                sEnd = i;
-                minSum = localSum;
-            }
+        	buy1 = Math.max(buy1, -prices[i]);
+        	sell1 = Math.max(sell1, buy1 + prices[i]);
+        	
+        	buy2 = Math.max(buy2, sell1 - prices[i]);
+        	sell2 = Math.max(sell2, prices[2] + buy2);
         }
-        
-        return minSum + prevMax;
+         
+        return sell2;
     }
+
+ 
 }
