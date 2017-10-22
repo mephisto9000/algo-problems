@@ -8,6 +8,7 @@ import org.junit.Test;
 public class Tests {
 
 	@Test	
+	 
 	public void test() {
 		Solution sol = new Solution();
 		
@@ -33,7 +34,8 @@ public class Tests {
 	@Test
 	public void test2() {
 		Solution sol = new Solution();				
-		int[][] map = {{0,0,0},{1,1, -1}};
+		int[][] map = {{0,0,  0},
+					   {1,1, -1}};
 		int ans = sol.calculateMinimumHP(map);
 		int exp = 1;
 				
