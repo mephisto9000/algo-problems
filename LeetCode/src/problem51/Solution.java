@@ -11,6 +11,7 @@ public class Solution {
     int n ;
     
     char tmp[][];
+    int testtmp[][];
     
     List<List<String>> ans;
     
@@ -27,6 +28,11 @@ public class Solution {
         q = new int[n][2];
         this.n = n;
         
+        for (int i = 0; i < n; i++)
+        {
+            Arrays.fill(tmp[i], '.');             
+        }
+        
         setRow(0, 0);
         
         return ans;
@@ -36,67 +42,58 @@ public class Solution {
     {
     	if (row >= n)
     		return;
-    	
-    	for (int i = 0; i < n; i++)
+    	                     
+        pretest(qnum+1);
+        
+        List<Integer> avail = new LinkedList();
+        for (int i = 0; i < n; i++)
     	{
-    		
+            if (testtmp[row][i]==0)
+                avail.add(i);
+        }
+
+        Iterator it = avail.iterator();
+        
+        while(it.hasNext())
+    	{
+            int i = (Integer) it.next();
+                		
     		q[qnum][0] = row;
     		q[qnum][1] = i;
-    		
-    		if (test(qnum+1))
-    		{
-    			if (qnum==n-1)
-    				save();
+                       
+            tmp[row][i] = 'Q';
+                
+    		if (qnum==n-1)
+    			save();
 
-    			setRow(row+1, qnum+1);
-    		}
-    		else
-    		{
- 
-    		}
+    		setRow(row+1, qnum+1);                
+            tmp[row][i] = '.';
+    		    		 
     	}
     }
     
     List<String> save()
-    {
-        for (int i = 0; i < n; i++)
-        {
-            Arrays.fill(tmp[i], '.');             
-        }
-        
-        for (int i = 0; i < n; i++)
-            tmp[q[i][0]][q[i][1]] = 'Q';
-
+    {                
+ 
         List<String> ans = new LinkedList<String>();
 
-        
-       // StringBuffer sb = new StringBuffer();
         for (int i = 0; i < n; i++)
-        {
-        	/*
-            sb.delete(0, sb.length()); 
-
-            for (int j = 0; j < n; j++)
-                sb.append(tmp[i][j]);
-
-            ans.add(sb.toString()); */
-            
-            String text = String.copyValueOf(tmp[i]);
-            ans.add(text);
+        {        	                          
+            ans.add(new String(tmp[i]));
         }
-        
+             
         this.ans.add(ans);
-        
+                 
         return ans;
     }
     
     
-    boolean test(int qlen)
+    void pretest(int qlen)
     {
-        int tmp[][] = new int[n][n];
+        testtmp  = new int[n][n];
         
         for (int i = 0; i < n; i++)
-            Arrays.fill(tmp[i], 0);
+            Arrays.fill(testtmp[i], 0);
         
         for (int i = 0; i < qlen-1; i++)
         {
@@ -105,24 +102,30 @@ public class Solution {
             
             for (int j = 0; j < n; j++)
             {
-                tmp[y][j] = 1;
-                tmp[j][x] = 1;
+                testtmp[y][j] = 1;
+                testtmp[j][x] = 1;
             }
             
             for (int j = -n; j<=n; j++)
             {
                 if(y + j >=0 && y + j < n && x + j >=0 && x + j < n)
-                    tmp[y+j][x+j] = 1;
+                    testtmp[y+j][x+j] = 1;
                 
                 if(y + j < n && y + j >= 0 && x - j >=0 && x - j < n )
-                    tmp[y+j][x-j] = 1;
+                    testtmp[y+j][x-j] = 1;
             }
         }
         
-        if (tmp[q[qlen-1][0]][q[qlen-1][1]] == 0)
+       
+            
+    }
+    
+    boolean test(int qlen)
+    {
+         if (testtmp[q[qlen-1][0]][q[qlen-1][1]] == 0)
             return true;
         return false;
-            
     }
 
 }
+
