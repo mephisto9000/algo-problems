@@ -1,74 +1,101 @@
 package problem161;
 
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) {
- *         val = x;
- *         next = null;
- *     }
- * }
- */
-public class Solution {
-    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        
-        int l1 = 0;
-        int l2 = 0;
-        
-        ListNode tmp = headA;
-        while(tmp!=null)
-        {
-            tmp = tmp.next;
-            l1++;
-        }
-        
-         tmp = headB;
-        while(tmp!=null)
-        {
-            tmp = tmp.next;
-            l2++;
-        }
-        
-        return rec(headA, headB, l1, l2, 0,0);
+class Solution {
+    
+    String s1;
+    String s2;
+    int len1;
+    int len2;
+    
+    
+    
+    public boolean isOneEditDistance(String s, String t) {
+        s1 = s;
+        s2 = t;
+        len1 = s1.length();
+        len2 = s2.length();
         
         
+        if (cmpEdit() == 1)
+            return true;
+        if (cmpDel() == 1)
+            return true;
         
+        return false;
     }
     
-    ListNode rec(ListNode a, ListNode b, int l1, int l2, int cl1, int cl2)        
+    int cmpDel()
     {
-        while(true)
+        int idx1 = 0;
+        int idx2 = 0;
+        int cnt = 0;
+        while(idx1 < len1 && idx2 < len2)
         {
-        while(l1 - cl1 != l2 - cl2)
-        {
-            if (l1 - cl1 > l2 - cl2)
+            if (s1.charAt(idx1) == s2.charAt(idx2))
             {
-                a = a.next;
-                cl1 ++;
+                idx1++;
+                idx2++;
+                continue;            
             }
+            cnt++;
+            if (len1>len2)
+                idx1++;
             else
-            {
-                b = b.next;
-                cl2 ++;
+                idx2++;
             
+            if (cnt > 1)
+                break;
+        }
+         if (idx1>=len1 && idx2 >= len2)
+            return cnt;
+        
+        if (idx1 >= len1)
+        {
+            
+            return s2.length()-idx2 + cnt;
+        }
+        
+        if (idx2 >= len2)
+            return s1.length() - idx1 + cnt;
+        
+         return 0;
+        }
+        
+    
+    
+    int cmpEdit()
+    {
+        int idx1 = 0;
+        int idx2 = 0;
+        int cnt = 0;
+        while(idx1 < len1 && idx2 < len2)
+        {
+            if (s1.charAt(idx1) == s2.charAt(idx2))
+            {
+                idx1++;
+                idx2++;
+                continue;            
             }
+            cnt++;
+            idx1++;
+            idx2++;
+            if (cnt > 1)
+                break;
         }
         
-        if(a == null || b == null)
-            return null;
+        if (idx1>=len1 && idx2 >= len2)
+            return cnt;
         
-        if (a == b)
-            return a;
-        
-            //return rec(a.next, b.next, l1, l2, (cl1+1), (cl2+1));
-            a = a.next;
-            b = b.next;
-            cl1++;
-            cl2++;
+        if (idx1 >= len1)
+        {
+            
+            return s2.length()-idx2 + cnt;
         }
         
-    }
+        if (idx2 >= len2)
+            return s1.length() - idx1 + cnt;
+        
+         return 0;
+        }
     
 }
