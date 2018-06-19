@@ -20,7 +20,7 @@ public class Tests {
 				   "example  of text",
 				   "justification.  ");
 		
-		assertEquals(w, exp);
+		Assert.assertEquals(w, exp);
 	}
 
 }
