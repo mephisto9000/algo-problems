@@ -1,44 +1,64 @@
 package problem380;
 
 class RandomizedSet {
+
     /** Initialize your data structure here. */
-    Set<Integer> s; 
+    
+    int cnt ;
+    int arr[];
+    Map<Integer, Integer> map;
     
     public RandomizedSet() {
-        s = new HashSet();
+        arr = new int[65535];
+        map = new HashMap();
+        cnt = 0;
     }
     
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
     public boolean insert(int val) {
-       return  s.add(val);
+       
+        
+        if (map.containsKey(val))
+            return false;
+        
+        arr[cnt] = val;
+        map.put(val, cnt++);
+        
+       return  true;
     }
     
     /** Removes a value from the set. Returns true if the set contained the specified element. */
     public boolean remove(int val) {
-        return s.remove(val)    ;
+        
+        if (!map.containsKey(val))
+            return false;
+        
+        int idx = map.get(val);
+        map.remove(val);
+        int v = arr[cnt-1];
+        cnt --;
+        
+        if (cnt == idx)
+            return true;
+        arr[idx] = v;
+        map.put(v, idx);
+        
+        return true;
     }
     
     /** Get a random element from the set. */
     public int getRandom() {
         
         Random rand = new Random();
-        int  idx = rand.nextInt(s.size());
+
+        int  idx = rand.nextInt(cnt);       
         
-        Iterator<Integer> it = s.iterator();
         
-        
-        for(int i = 0; i < s.size(); i++)
-        {
-            int v = it.next();
-            if (i == idx)
-                return v;
-                
-        }
-        
-        return -1;
+        return arr[idx];
         
     }
 }
+
 /**
  * Your RandomizedSet object will be instantiated and called as such:
  * RandomizedSet obj = new RandomizedSet();
