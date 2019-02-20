@@ -1,0 +1,39 @@
+package problem703;
+
+class KthLargest {
+    PriorityQueue<Integer> q;   
+    int k;
+    public KthLargest(int k, int[] nums) {
+        
+        this.k = k;
+        q = new PriorityQueue(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer a, Integer b) {
+                return a-b;
+            }
+        }); 
+        
+        for (int i = 0; i < nums.length; i++) {
+            add(nums[i]);
+        }
+        
+    }
+    
+    public int add(int val) {
+        q.add(val);
+        if (q.size() > k && q.peek() <= val) {
+            q.poll();            
+        }
+        
+        if (q.size() > 0)
+            return q.peek();
+        else
+            return 0;
+    }
+}
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * KthLargest obj = new KthLargest(k, nums);
+ * int param_1 = obj.add(val);
+ */
