@@ -30,9 +30,14 @@ class Solution {
         }
 
         int[] arr = new int[ans.size()];
-        
-        for (int i = 0; i < ans.size(); i++)
+        usedSet.clear();
+        for (int i = 0; i < ans.size(); i++) {
+          if (usedSet.contains(ans.get(i)))
+            continue;
+            
             arr[i] = ans.get(i);
+            usedSet.add(arr[i]);
+        }
         
         return arr;
                 
@@ -43,7 +48,7 @@ class Solution {
         if (used[idx])
             return false;
         used[idx] = true;
-      usedSet.add(idx);
+       usedSet.add(idx);
         
         List<Integer> l = preq.getOrDefault(idx, new LinkedList());
         for (Integer pidx : l) {
@@ -51,6 +56,7 @@ class Solution {
                 return false;
         }
         
+       //if (!ans.contains(idx))
         ans.add(idx);
         used[idx] = false;
         return true;
